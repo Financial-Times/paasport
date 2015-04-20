@@ -16,10 +16,10 @@ from models.machine import Machine
 '''
 
 mappings = (
-		'/clusters/([0-9a-zA-Z\-]+)', 'cluster',
+		'/clusters/([0-9a-zA-Z\-]+)/?', 'cluster',
 		'/clusters/?', 'cluster_collection',
-		'/clusters/([0-9a-zA-Z\-]+)/machines/?', 'machines',
-		'/clusters/([0-9a-zA-Z\-]+)/machines/?', 'machines',
+		'/clusters/([0-9a-zA-Z\-]+)/machines/?', 'machine_collection',
+		'/clusters/([0-9a-zA-Z\-]+)/machines/([0-9a-zA-Z\-]+)/?', 'machine',
 )
 
 
@@ -37,12 +37,22 @@ class cluster:
 	def PATCH(self, id):
 		return "DONE"
 
-class machines:
+class machine_collection:
 	def GET(self, clusterId):
 		return "machines of " + str(clusterId)
 
 	def POST(self, clusterId):
-		return Machine.create_new(json.loads(web.data()))
+		data = json.loads(web.data())
+		return Machine.create_new(data)
+
+class machine:
+	def GET(self, clusterId, machineId):
+		pass
+
+	def DELETE(self, clusterId, machineId):
+		# TODO get the region from the database
+		region = 'eu-west-1'
+		return Machine.delete_instance(machineId, region)
 
 class cluster_collection:
 	def GET(self):

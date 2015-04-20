@@ -4,6 +4,7 @@ import boto.ec2
 AMI_ID = 'ami-25158352'
 
 class Machine:
+
 	@staticmethod
 	def create_new(data):
 		# boto create instance
@@ -20,3 +21,10 @@ class Machine:
 				instance_type='m3.medium').instances[0].id
 
 		return image_id
+
+
+	@staticmethod
+	def delete_instance(instanceId, region):
+		connection = boto.ec2.connect_to_region(region)
+		connection.terminate_instances(instance_ids=[instanceId])
+		return True
