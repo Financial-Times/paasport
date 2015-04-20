@@ -14,26 +14,30 @@ import json
 '''
 
 mappings = (
-	'/cluster', 'cluster',
+		'/clusters/([0-9a-zA-Z\-]+)', 'cluster',
+		'/clusters/?', 'clusters',
+		'/clusters/([0-9a-zA-Z\-]+)/machines/?', 'machines',
 )
 
 
 app = web.application(mappings, globals())
 
 class cluster:
+	def GET(self, id):
+		'''Returns single cluster
+		'''
+		return "ID, " + str(id)
+class machines:
+
+	def GET(self, clusterId):
+		return "machines of " + str(clusterId)
+
+class clusters:
 	def GET(self):
-		'''Returns all clusters
-		'''
-		return "Many clusters"
+		''' Returns all clsuters '''
+		return ''
 	def POST(self):
-		'''Creates a cluster
-		data required:
-		{
-			'name':		'some sort of name'
-			'owner'		'Willem Koopman'
-			'metadata'	'json blob'
-		}
-		'''
+		''' Return '''
 		return web.data()
 
 if __name__ == '__main__':
