@@ -1,9 +1,17 @@
 import boto.ec2
+import muliprocessing
 
 # EU-WEST-1: RHEL7 HVM
 AMI_ID = 'ami-25158352'
 
+pool = muliprocessing.Pool()
+
 class Machine:
+
+	@staticmethod
+	def create_many(definitions):
+		return pool.map(Machine.create_new, definitions)
+
 
 	@staticmethod
 	def create_new(data):
