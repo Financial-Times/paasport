@@ -16,6 +16,7 @@ class Machine:
 
 		security_groups = [ 'sg-fb4c1a9e' ]
 		connection = boto.ec2.connect_to_region(region)
-		image_id = connection.run_instances(AMI_ID, instance_type='m3.medium')
+		image_id = connection.run_instances(AMI_ID,
+				instance_type='m3.medium').instances[0].id
 
 		return image_id

@@ -40,6 +40,7 @@ class cluster:
 class machines:
 	def GET(self, clusterId):
 		return "machines of " + str(clusterId)
+
 	def POST(self, clusterId):
 		return Machine.create_new(json.loads(web.data()))
 
