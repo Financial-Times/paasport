@@ -65,11 +65,11 @@ def create_machine_by_id(new_instance_id, machine_name, machine_state, machine_m
 	'''
 	creates a machine and assosisates it with a cluster id
 	'''
-	machine_id = db.insert('machines', name=machine_name, instance_id= new_instance_id, state=machine_state, metadata=machine_metadata, cluster_id = new_cluster_id )
+	machine_id = db.insert('machines', name=machine_name, instance_id= new_instance_id, hostname= machine_hostname,  state=machine_state, metadata=machine_metadata, cluster_id = new_cluster_id )
 	print machine_id
 
 
-def create_machine_by_name(new_instance_id, machine_name, machine_state, machine_metadata, cluster_name):
+def create_machine_by_name(new_instance_id, machine_name, machine_hostname,  machine_state, machine_metadata, cluster_name):
 	'''
 	creates a machine and assosiates it with a cluster name
 	'''
@@ -78,7 +78,7 @@ def create_machine_by_name(new_instance_id, machine_name, machine_state, machine
 	if cluster_id == []:
 		raise ValueError('Cluster does not exsist, cannot attach machine')
 	#now pass the id onto the create_machine_by_id function
-	create_machine_by_id(new_instance_id, machine_name, machine_state, machine_metadata, cluster_id[0].id)
+	create_machine_by_id(new_instance_id, machine_name, machine_hostname, machine_state, machine_metadata, cluster_id[0].id)
 
 
 def delete_machine(machine_id):

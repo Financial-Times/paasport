@@ -24,3 +24,6 @@ CREATE TABLE manage (
 
 --now let us create a holding place for spare machines or "provision ready" machines
 INSERT INTO cluster VALUES (NULL, 'spare', 'The Man.', 'THis is the spare machine nursery');
+INSERT INTO cluster VALUES (NULL, 'testing', 'The Tester.', 'A test cluster');
+INSERT INTO machines VALUES (NULL, 'Daves testing VM', '127.0.0.1', 'sdgsdfgsdgf','offline', 'Hmmmm metadata', 2);
+INSERT INTO machines VALUES (NULL, 'VM2', '127.0.0.1', 'Mkwooo','offline', 'Hmmmm metadata', 2);
