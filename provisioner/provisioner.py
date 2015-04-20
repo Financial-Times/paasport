@@ -2,6 +2,7 @@
 
 import web
 import json
+import models.db
 
 from models.machine import Machine
 
@@ -57,6 +58,12 @@ class machine:
 class cluster_collection:
 	def GET(self):
 		''' Returns all clsuters '''
+		clusters = models.db.get_clusters()
+		data = []
+		for cluster in clusters:
+			data.append({'name':cluster.name, 'owner':cluster.owner, 'metadata': cluster.metadata})
+
+
 		return ''
 	def POST(self):
 		''' Return '''

@@ -13,7 +13,7 @@ for datum in data:
 
 import web
 
-db = web.database(dbn='sqlite', db='database.db')
+db = web.database(dbn='sqlite', db='../database.db')
 
 def get_clusters():
 	'''returns all the clusters:

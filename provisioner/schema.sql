@@ -8,6 +8,7 @@ CREATE TABLE cluster (
 CREATE TABLE machines (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	name TEXT,
+	hostname TEXT,
 	instance_id TEXT,
 	state TEXT,		--should be an int really, but thats for later
 	metadata TEXT,
