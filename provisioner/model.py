@@ -53,6 +53,26 @@ def create_cluster(cluster_name, cluster_owner, cluster_metadata):
 	cluster_id = db.insert('cluster', name = cluster_name, owner = cluster_owner, metadata = cluster_metadata )
 	print cluster_id
 
+def create_machine_by_id(new_instance_id, machine_name, machine_state, machine_metadata, new_cluster_id):
+	'''
+	creates a machine and assosisates it with a cluster id
+	'''
+	machine_id = db.insert('machines', name=machine_name, instance_id= new_instance_id, state=machine_state, metadata=machine_metadata, cluster_id = new_cluster_id )
+	print machine_id
+
+
+def create_machine_by_name(new_instance_id, machine_name, machine_state, machine_metadata, cluster_name):
+	'''
+	creates a machine and assosiates it with a cluster name
+	'''
+	#get the cluster ID from the name
+	cluster_id = db.query("SELECT id FROM cluster WHERE name = '{0}'".format(cluster_name))
+	if cluster_id == []:
+		raise ValueError('Cluster does not exsist, cannot attach machine')
+	#now pass the id onto the create_machine_by_id function
+	create_machine_by_id(new_instance_id, machine_name, machine_state, machine_metadata, cluster_id[0].id)
+
+
 def test(name):
 	test = db.select('cluster', where='id=1').list()
 	return test
