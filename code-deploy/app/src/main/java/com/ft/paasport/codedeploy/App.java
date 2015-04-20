@@ -5,12 +5,14 @@ import com.ft.paasport.codedeploy.resources.DeploymentsResource;
 import com.ft.paasport.codedeploy.resources.HelloWorldResource;
 import com.ft.paasport.codedeploy.resources.mock.ClusterResource;
 import com.ft.paasport.codedeploy.service.Deployer;
+import com.ft.paasport.codedeploy.service.ProvisionerClient;
 import com.google.common.io.Resources;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Environment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ws.rs.client.ClientBuilder;
 import java.io.File;
 import java.net.URISyntaxException;
 
@@ -33,7 +35,9 @@ public class App extends Application<AppConfig> {
         environment.jersey().register(clusterResource);
 
         // Core resources
-        final DeploymentsResource deploymentsResource = new DeploymentsResource(new Deployer());
+        // TODO: read url from config file
+        final ProvisionerClient provisioner = new ProvisionerClient(ClientBuilder.newClient(), "http://localhost:8080/paasport/code-deploy/mock/clusters/%s/machines");
+        final DeploymentsResource deploymentsResource = new DeploymentsResource(new Deployer(), provisioner);
         environment.jersey().register(deploymentsResource);
 
         final HelloWorldHealthCheck helloWorldHealthCheck = new HelloWorldHealthCheck();

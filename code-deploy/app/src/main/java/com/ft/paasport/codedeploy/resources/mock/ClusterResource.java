@@ -16,9 +16,10 @@ public class ClusterResource {
     public String getMachinesInCluster() {
         return "[\n" +
                 "\t{\n" +
-                "\t\"id\":\"0000000000f1a\",\n" +
-                "\t\"instance_id\": \"blah\",\n" +
-                "\t\"name\":\"friendly name\",\n" +
+                "\t\"id\":\"0001\",\n" +
+                "\t\"instance_id\": \"i-5498b8b3\",\n" +
+                "\t\"hostname\": \"ec2-52-17-65-181.eu-west-1.compute.amazonaws.com\",\n" +
+                "\t\"name\":\"demo-application-node-1\",\n" +
                 "\t\"region\":\"eu-west-1\"\n" +
                 "\t}\t\n" +
                 "]";

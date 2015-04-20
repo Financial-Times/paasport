@@ -18,7 +18,7 @@ public class HelloWorldResource {
 
     @GET
     public String getGreeting() {
-        CommandLine cmdLine = CommandLine.parse("/Users/anuragkapur/tech-stuff/workspace/ft/paasport/code-deploy/scripts/java-deploy.sh");
+        CommandLine cmdLine = CommandLine.parse("/Users/anuragkapur/tech-stuff/workspace/ft/paasport/code-deploy/scripts/remoteDeploy.sh");
         DefaultExecutor executor = new DefaultExecutor();
         try {
             executor.execute(cmdLine);

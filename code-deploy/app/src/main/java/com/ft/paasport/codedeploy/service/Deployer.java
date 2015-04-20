@@ -2,6 +2,8 @@ package com.ft.paasport.codedeploy.service;
 
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
@@ -11,7 +13,8 @@ import java.net.URL;
  */
 public class Deployer {
 
-    private static final String DEPLOY_SCRIPT_NAME = "java-deploy.sh";
+    private static final Logger LOGGER = LoggerFactory.getLogger(Deployer.class);
+    private static final String DEPLOY_SCRIPT_NAME = "remoteDeploy.sh";
     private static URL fileUrl;
 
     public Deployer() {
@@ -19,9 +22,10 @@ public class Deployer {
         fileUrl = classLoader.getResource(DEPLOY_SCRIPT_NAME);
     }
 
-    public void deploy(String clusterId, String sourceTarUrl) {
+    public void deploy(String hostname, String sourceTarUrl) {
+        LOGGER.info("hostname :: {}, sourceTarUrl :: {}", hostname, sourceTarUrl);
         CommandLine cmdLine = CommandLine.parse(fileUrl.getPath());
-        cmdLine.addArgument(clusterId);
+        cmdLine.addArgument(hostname);
         cmdLine.addArgument(sourceTarUrl);
         DefaultExecutor executor = new DefaultExecutor();
         try {
