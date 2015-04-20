@@ -8,10 +8,6 @@ CREATE TABLE cluster (
 CREATE TABLE machines (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	name TEXT,
-	cpu INTEGER,
-	memory INTEGER,
-	disk INTEGER,
-	region TEXT,
 	state TEXT,		--should be an int really, but thats for later
 	metadata TEXT,
 	cluster_id INTEGER,
