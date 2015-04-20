@@ -1,0 +1,3 @@
+secureConfigLocation: com/ft/membership/appName/secureconfig-dev.yaml
+
+greeting: "Hello World!"

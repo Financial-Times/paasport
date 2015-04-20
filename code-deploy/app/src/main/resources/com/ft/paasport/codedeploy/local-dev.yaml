@@ -1,0 +1,24 @@
+server:
+  type: simple
+  connector:
+    type: http
+    port: 8080
+
+  requestLog:
+    timeZone: UTC
+    appenders:
+      - type: console
+
+logging:
+  level: INFO
+  appenders:
+    - type: console
+
+  loggers:
+      "org.eclipse.jetty": INFO
+      "io.dropwizard": INFO
+      "com.ft": INFO
+
+secureConfigLocation: com/ft/membership/appName/secureconfig-dev.yaml
+
+greeting: "Hello World!"

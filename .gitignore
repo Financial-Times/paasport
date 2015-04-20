@@ -1,1 +1,9 @@
 *.pyc
+
+# IDE stuff
+.idea
+*.iml
+
+# Java stuff to ignore
+.class
+.jar
