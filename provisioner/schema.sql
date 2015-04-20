@@ -2,7 +2,7 @@ CREATE TABLE cluster (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	name TEXT,
 	owner TEXT,
-	metadata TEXT,
+	metadata TEXT
 );
 
 CREATE TABLE machines (
