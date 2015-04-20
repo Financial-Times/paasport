@@ -31,6 +31,12 @@ def get_clusters():
 
 	return db.query('SELECT * from cluster')
 
+def get_cluster_by_id(cluster_id):
+	return db.query("SELECT * FROM cluster WHERE id == '{0}'".format(cluster_id)).list()
+
+def delete_cluster_by_id(cluster_id):
+	return db.delete('cluster', where="id == {0}".format(cluster_id))
+
 def get_machines_by_cluster_name(cluster_name):
 	'''
 	takes a cluster name and returns all the machines associated with it

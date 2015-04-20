@@ -35,15 +35,10 @@ app = ProvisionerApp(mappings, globals())
 
 class cluster:
 	def GET(self, id):
-		'''Returns single cluster
-		'''
-		return "ID, " + str(id)
+		return json.dumps(models.db.get_cluster_by_id(id)[0])
 
 	def DELETE(self, id):
-		return "DONE"
-
-	def PATCH(self, id):
-		return "DONE"
+		return json.dumps(models.db.delete_cluster_by_id(id))
 
 class machine_collection:
 	def GET(self, clusterId):
