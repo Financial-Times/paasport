@@ -1,6 +1,14 @@
 #!/usr/bin/python
 '''
 Map the database to functions
+
+The Data is returned in the web.py kinda way, that is as a Storage object.
+
+This can be converted to a dict, if you so wish, or you can interrogate it as follows:
+data =  model.get_machines_by_cluster_name('pare')
+for datum in data:
+	    print datum.name
+
 '''
 
 import web
