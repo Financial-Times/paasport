@@ -3,6 +3,8 @@
 import web
 import json
 
+from models.machine import Machine
+
 '''A system to create groups of machines (clusters). With methods to:
 * create a cluster
 * list clusters
@@ -15,7 +17,8 @@ import json
 
 mappings = (
 		'/clusters/([0-9a-zA-Z\-]+)', 'cluster',
-		'/clusters/?', 'clusters',
+		'/clusters/?', 'cluster_collection',
+		'/clusters/([0-9a-zA-Z\-]+)/machines/?', 'machines',
 		'/clusters/([0-9a-zA-Z\-]+)/machines/?', 'machines',
 )
 
@@ -27,12 +30,20 @@ class cluster:
 		'''Returns single cluster
 		'''
 		return "ID, " + str(id)
-class machines:
 
+	def DELETE(self, id):
+		return "DONE"
+
+	def PATCH(self, id):
+		return "DONE"
+
+class machines:
 	def GET(self, clusterId):
 		return "machines of " + str(clusterId)
+	def POST(self, clusterId):
+		return Machine.create_new(json.loads(web.data()))
 
-class clusters:
+class cluster_collection:
 	def GET(self):
 		''' Returns all clsuters '''
 		return ''
