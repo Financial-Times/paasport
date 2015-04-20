@@ -16,6 +16,7 @@ import json
 mappings = (
 		'/clusters/([0-9a-zA-Z\-]+)', 'cluster',
 		'/clusters/?', 'clusters',
+		'/clusters/([0-9a-zA-Z\-]+)/machines/?', 'machines',
 )
 
 
@@ -26,6 +27,10 @@ class cluster:
 		'''Returns single cluster
 		'''
 		return "ID, " + str(id)
+class machines:
+
+	def GET(self, clusterId):
+		return "machines of " + str(clusterId)
 
 class clusters:
 	def GET(self):
