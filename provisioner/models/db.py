@@ -13,7 +13,7 @@ for datum in data:
 
 import web
 
-db = web.database(dbn='sqlite', db='../database.db')
+db = web.database(dbn='sqlite', db='database.db')
 
 def get_clusters():
 	'''returns all the clusters:
@@ -29,7 +29,7 @@ def get_clusters():
 	and provisioned but not assigned to a cluster.
 	'''
 
-	return db.select('cluster').list()
+	return db.query('SELECT * from cluster')
 
 def get_machines_by_cluster_name(cluster_name):
 	'''

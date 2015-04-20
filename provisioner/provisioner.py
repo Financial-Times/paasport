@@ -65,16 +65,28 @@ class machine:
 class cluster_collection:
 	def GET(self):
 		''' Returns all clsuters '''
-		clusters = models.db.get_clusters()
+		all_clusters = models.db.get_clusters()
 		data = []
-		for cluster in clusters:
-			data.append({'name':cluster.name, 'owner':cluster.owner, 'metadata': cluster.metadata})
+		count =0
+		for cluster in all_clusters.list():
+			print count
+			count +=1
+			cluster_string = {'id': cluster.id,'name':cluster.name, 'owner':cluster.owner, 'metadata': cluster.metadata}
+			print cluster_string
+			data.append(cluster_string)
 
 
-		return ''
+		return json.dumps(data, sort_keys=True, indent=4) 
 	def POST(self):
 		''' Return '''
 		return web.data()
+		input_data = json.laods(web.data())
+		if 'name' in input_data and 'owner' in input_data and 'metadata' in input_data:
+			print 'wooo'
+		else:
+			print 'boooo'
+			print input_data
+
 
 if __name__ == '__main__':
 	app.run(port=port)
