@@ -1,5 +1,7 @@
 server:
   type: simple
+  applicationContextPath: /paasport/code-deploy
+  adminContextPath: /admin
   connector:
     type: http
     port: 8080
