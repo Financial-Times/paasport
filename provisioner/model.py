@@ -35,17 +35,23 @@ def get_machines_by_cluster_id(cluster_name):
 	'''
 	return db.query("SELECT * FROM machines WHERE machines.cluster_id = {0})".format(cluster_name)).list()
 
-def create_cluster(name, owner, metadata):
+def create_cluster(cluster_name, cluster_owner, cluster_metadata):
 	'''
 	creates a cluster with the supplied name, owner and metadata
 	returns the new cluster ID
 	'''
 
 	#first let us see if we have a cluster called that already:
-	test = db.query("select name from cluster where name = '{0}'".format(name)).list()
-	if test == [] :
+	used_already = db.query("select name from cluster where name = '{0}'".format(cluster_name)).list()
+	if used_already == [] :
 		print "Woo we don't have a name clash"
-	print test
+	else:
+		print "Cluster {0} already exsists".format(cluster_name)
+		raise ValueError('The cluster name already exsists')
+
+	#yes we have a unique name, begin the insert
+	cluster_id = db.insert('cluster', name = cluster_name, owner = cluster_owner, metadata = cluster_metadata )
+	print cluster_id
 
 def test(name):
 	test = db.select('cluster', where='id=1').list()
