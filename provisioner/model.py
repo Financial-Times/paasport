@@ -81,10 +81,18 @@ def create_machine_by_name(new_instance_id, machine_name, machine_state, machine
 	create_machine_by_id(new_instance_id, machine_name, machine_state, machine_metadata, cluster_id[0].id)
 
 
-def test(name):
-	test = db.select('cluster', where='id=1').list()
-	return test
+def delete_machine(machine_id):
+	'''
+	Deletes a machine by a given ID
+	returns the 1 if a machine is deleted
+	'''
+	return db.delete('machines', where="id={0}".format(machine_id))
 
-
+def delete_all_machines_in_cluster(cluster_id):
+	'''
+	deletes all the machines that live in a given cluster ID
+	returns number of machines deleted, or 0 if none
+	'''
+	return db.delete('machines', where="cluster_id = {0}".format(cluster_id))
 
 
