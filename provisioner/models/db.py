@@ -59,7 +59,7 @@ def create_cluster(cluster_name, cluster_owner, cluster_metadata):
 
 	#yes we have a unique name, begin the insert
 	cluster_id = db.insert('cluster', name = cluster_name, owner = cluster_owner, metadata = cluster_metadata )
-	print cluster_id
+	return cluster_id
 
 def create_machine_by_id(new_instance_id, machine_name, machine_state, machine_metadata, new_cluster_id):
 	'''

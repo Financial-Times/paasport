@@ -5,7 +5,7 @@ import web
 import json
 import models.db
 
-from models.machine import Machine
+from models.machine import create_many
 
 '''A system to create groups of machines (clusters). With methods to:
 * create a cluster
@@ -51,7 +51,7 @@ class machine_collection:
 
 	def POST(self, clusterId):
 		data = json.loads(web.data())
-		return Machine.create_new(data)
+		return create_many(data)
 
 class machine:
 	def GET(self, clusterId, machineId):
@@ -65,28 +65,24 @@ class machine:
 class cluster_collection:
 	def GET(self):
 		''' Returns all clsuters '''
-		all_clusters = models.db.get_clusters()
+		clusters = models.db.get_clusters()
 		data = []
-		count =0
-		for cluster in all_clusters.list():
-			print count
-			count +=1
-			cluster_string = {'id': cluster.id,'name':cluster.name, 'owner':cluster.owner, 'metadata': cluster.metadata}
-			print cluster_string
-			data.append(cluster_string)
+		for cluster in clusters:
+			data.append({'name':cluster.name, 'owner':cluster.owner,
+				'metadata': cluster.metadata, 'id': cluster.id})
 
+		return json.dumps(data)
 
-		return json.dumps(data, sort_keys=True, indent=4) 
 	def POST(self):
 		''' Return '''
-		return web.data()
-		input_data = json.laods(web.data())
-		if 'name' in input_data and 'owner' in input_data and 'metadata' in input_data:
-			print 'wooo'
-		else:
-			print 'boooo'
-			print input_data
-
+		data = json.loads(web.data())
+		clusterId = models.db.create_cluster(data['name'], data['owner'], data['metadata'])
+		return json.dumps({
+			'name': data['name'],
+			'owner': data['owner'],
+			'metadata': data['metadata'],
+			'id': clusterId
+		})
 
 if __name__ == '__main__':
 	app.run(port=port)
