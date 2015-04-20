@@ -42,11 +42,21 @@ class cluster:
 
 class machine_collection:
 	def GET(self, clusterId):
-		return "machines of " + str(clusterId)
+		return json.dumps(models.db.get_machines_by_cluster_id(clusterId))
 
 	def POST(self, clusterId):
 		data = json.loads(web.data())
-		return create_many(data)
+		instances = create_many(data)
+		responsedata = []
+		index = 0
+		for instance in instances:
+			responsedata.append(models.db.create_machine_by_id(instance.id,
+				data[index]['name'], 'initialising',
+				str(data[index]['metadata']),
+				clusterId, instance.private_ip_address))
+			index += 1
+
+		return json.dumps(responsedata)
 
 class machine:
 	def GET(self, clusterId, machineId):

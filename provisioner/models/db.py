@@ -47,7 +47,7 @@ def get_machines_by_cluster_id(cluster_name):
 	'''
 	takes a cluster name and returns all the machines associated with it
 	'''
-	return db.query("SELECT * FROM machines WHERE machines.cluster_id = {0})".format(cluster_name)).list()
+	return db.query("SELECT * FROM machines WHERE machines.cluster_id == {0}".format(cluster_name)).list()
 
 def create_cluster(cluster_name, cluster_owner, cluster_metadata):
 	'''
@@ -67,11 +67,11 @@ def create_cluster(cluster_name, cluster_owner, cluster_metadata):
 	cluster_id = db.insert('cluster', name = cluster_name, owner = cluster_owner, metadata = cluster_metadata )
 	return cluster_id
 
-def create_machine_by_id(new_instance_id, machine_name, machine_state, machine_metadata, new_cluster_id):
+def create_machine_by_id(new_instance_id, machine_name, machine_state,	machine_metadata, new_cluster_id, machine_hostname):
 	'''
 	creates a machine and assosisates it with a cluster id
 	'''
-	machine_id = db.insert('machines', name=machine_name, instance_id= new_instance_id, hostname= machine_hostname,  state=machine_state, metadata=machine_metadata, cluster_id = new_cluster_id )
+	machine_id = db.insert('machines', name=machine_name, instance_id= new_instance_id, hostname=machine_hostname,  state=machine_state, metadata=machine_metadata, cluster_id = new_cluster_id )
 	print machine_id
 
 
