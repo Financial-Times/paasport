@@ -1,7 +1,9 @@
 package com.ft.paasport.codedeploy;
 
 import com.ft.paasport.codedeploy.health.HelloWorldHealthCheck;
+import com.ft.paasport.codedeploy.resources.DeploymentsResource;
 import com.ft.paasport.codedeploy.resources.HelloWorldResource;
+import com.ft.paasport.codedeploy.resources.mock.ClusterResource;
 import com.google.common.io.Resources;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Environment;
@@ -24,6 +26,14 @@ public class App extends Application<AppConfig> {
         // Init and register hello-world resource
         final HelloWorldResource helloWorldResource = new HelloWorldResource(appConfig.getGreeting());
         environment.jersey().register(helloWorldResource);
+
+        // Mocks
+        final ClusterResource clusterResource = new ClusterResource();
+        environment.jersey().register(clusterResource);
+
+        // Core resources
+        final DeploymentsResource deploymentsResource = new DeploymentsResource();
+        environment.jersey().register(deploymentsResource);
 
         final HelloWorldHealthCheck helloWorldHealthCheck = new HelloWorldHealthCheck();
         environment.healthChecks().register("helloWorldHealthCheck", helloWorldHealthCheck);

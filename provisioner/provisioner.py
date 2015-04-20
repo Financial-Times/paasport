@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import os
 import web
 import json
 import models.db
@@ -24,7 +25,13 @@ mappings = (
 )
 
 
-app = web.application(mappings, globals())
+class ProvisionerApp(web.application):
+	def run(self, port=8080, *middleware):
+		func = self.wsgifunc(*middleware)
+		return web.httpserver.runsimple(func, ('0.0.0.0', port))
+
+port = int(os.environ['PORT']) if 'PORT' in os.environ else 8080
+app = ProvisionerApp(mappings, globals())
 
 class cluster:
 	def GET(self, id):
@@ -70,4 +77,4 @@ class cluster_collection:
 		return web.data()
 
 if __name__ == '__main__':
-	app.run()
+	app.run(port=port)
