@@ -35,8 +35,8 @@ public class App extends Application<AppConfig> {
         environment.jersey().register(clusterResource);
 
         // Core resources
-        // TODO: read url from config file
-        final ProvisionerClient provisioner = new ProvisionerClient(ClientBuilder.newClient(), "http://localhost:8080/paasport/code-deploy/mock/clusters/%s/machines");
+        final ProvisionerClient provisioner =
+                new ProvisionerClient(ClientBuilder.newClient(), appConfig.getProvisionerClusterDefEndpoint());
         final DeploymentsResource deploymentsResource = new DeploymentsResource(new Deployer(), provisioner);
         environment.jersey().register(deploymentsResource);
 
@@ -58,7 +58,7 @@ public class App extends Application<AppConfig> {
         if (args.length == 0) {
             String yamlPath = null;
             try {
-                yamlPath = new File(Resources.getResource("com/ft/paasport/codedeploy/local-dev.yaml").toURI()).getAbsolutePath();
+                yamlPath = new File(Resources.getResource("code-deploy-config.yaml").toURI()).getAbsolutePath();
             } catch (URISyntaxException e) {
                 LOGGER.error("error reading config", e);
             }

@@ -1,15 +1,13 @@
 package com.ft.paasport.codedeploy.resources;
 
 import com.ft.paasport.codedeploy.domain.Deployment;
+import com.ft.paasport.codedeploy.domain.DeploymentAcceptMetadata;
 import com.ft.paasport.codedeploy.domain.Machine;
 import com.ft.paasport.codedeploy.service.Deployer;
 import com.ft.paasport.codedeploy.service.ProvisionerClient;
 
 import javax.validation.Valid;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
@@ -27,6 +25,7 @@ public class DeploymentsResource {
     @POST
     @Path("/{clusterId}/deployments")
     @Consumes("application/json")
+    @Produces("application/json")
     public Response deploy(@Valid Deployment deployment, @PathParam("clusterId") final String clusterId) {
 
         List<String> hostnames = provisioner.getMachinesInCluster(clusterId);
@@ -39,6 +38,6 @@ public class DeploymentsResource {
             }
         }
 
-        return Response.ok().build();
+        return Response.accepted(new DeploymentAcceptMetadata()).build();
     }
 }

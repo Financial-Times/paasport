@@ -22,5 +22,7 @@ logging:
       "com.ft": INFO
 
 secureConfigLocation: com/ft/membership/appName/secureconfig-dev.yaml
+#provisionerClusterDefEndpoint: https://paasport-provisioner.herokuapp.com/clusters/%s/machines
+provisionerClusterDefEndpoint: http://localhost:8080/paasport/code-deploy/mock/clusters/%s/machines
 
 greeting: "Hello World!"
