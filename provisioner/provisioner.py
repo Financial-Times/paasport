@@ -79,7 +79,7 @@ class cluster_collection:
 
 class nursery_manager:
 	def POST(self):
-		models.machine.create_new_in_nursery()
+		models.machine.create_new_in_nursery({})
 		return "creating"
 
 if __name__ == '__main__':
