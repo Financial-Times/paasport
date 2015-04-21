@@ -26,7 +26,7 @@ def generate_userdata():
 	'''.format(ssh_key, deploy_script)
 	print user_data
 
-	return base64.b64encode(user_data)
+	return user_data
 
 def create_many(definitions, cluster_id):
 	return map(format_instance, map(lambda data: create_new(data, cluster_id),
