@@ -24,7 +24,7 @@ public class DeploymentsResource {
     private Deployer deployer;
     private ProvisionerClient provisioner;
     private DeploymentsDao deploymentsDao;
-    private ExecutorService executorService = Executors.newFixedThreadPool(10);
+    private ExecutorService executorService = Executors.newFixedThreadPool(20);
 
     public DeploymentsResource(Deployer deployer, ProvisionerClient provisioner, DeploymentsDao deploymentsDao) {
         this.deployer = deployer;

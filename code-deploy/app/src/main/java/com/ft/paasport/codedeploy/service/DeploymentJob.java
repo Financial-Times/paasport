@@ -41,6 +41,7 @@ public class DeploymentJob implements Runnable {
             }
             deploymentsDao.updateDeployment(deployment);
         } catch (IOException e) {
+
             e.printStackTrace();
         }
 

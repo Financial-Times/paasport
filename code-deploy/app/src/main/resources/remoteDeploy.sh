@@ -8,7 +8,7 @@ deployToHost ()
     hostname=$1
     sourceTarUrl=$2
     echo "Will deploy ${sourceTarUrl} to host :: ${hostname}"
-    ssh ec2-user@${hostname} /opt/code-deploy/deploy.sh ${sourceTarUrl}
+    ssh -o StrictHostKeyChecking=no ec2-user@${hostname} /opt/code-deploy/deploy.sh ${sourceTarUrl}
 }
 
 main ()
