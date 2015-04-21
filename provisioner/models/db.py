@@ -13,7 +13,15 @@ for datum in data:
 
 import web
 
-db = web.database(dbn='sqlite', db='database.db')
+import os
+import psycopg2
+import urlparse
+
+urlparse.uses_netloc.append("postgres")
+url = urlparse.urlparse(os.environ["DATABASE_URL"])
+
+db = web.database(dbn='postgres', db=url.path[1:], user=url.username,
+		password=url.password, host=url.hostname, port=url.port)
 
 def get_clusters():
 	'''returns all the clusters:
