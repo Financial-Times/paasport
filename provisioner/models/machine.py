@@ -50,7 +50,8 @@ def format_instance(instance):
 	return {
 		'id': instance.id,
 		'name': instance.tags['Name'],
-		'hostname': instance.private_ip_address,
+#		'hostname': instance.private_ip_address,
+		'hostname': instance.public_dns_name,
 # hardcoded m3.medium
 		'cpu': 1,
 		'memory': '4026531840',
