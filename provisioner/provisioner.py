@@ -4,8 +4,7 @@ import os
 import web
 import json
 import models.db
-
-from models.machine import create_many
+import models.machine
 
 '''A system to create groups of machines (clusters). With methods to:
 * create a cluster
@@ -41,31 +40,19 @@ class cluster:
 		return json.dumps(models.db.delete_cluster_by_id(id))
 
 class machine_collection:
-	def GET(self, clusterId):
-		return json.dumps(models.db.get_machines_by_cluster_id(clusterId))
+	def GET(self, cluster_id):
+		return json.dumps(models.machine.get_instances_in_cluster(cluster_id))
 
-	def POST(self, clusterId):
+	def POST(self, cluster_id):
 		data = json.loads(web.data())
-		instances = create_many(data)
-		responsedata = []
-		index = 0
-		for instance in instances:
-			responsedata.append(models.db.create_machine_by_id(instance.id,
-				data[index]['name'], 'initialising',
-				str(data[index]['metadata']),
-				clusterId, instance.private_ip_address))
-			index += 1
-
-		return json.dumps(responsedata)
+		return json.dumps(models.machine.create_many(data, cluster_id))
 
 class machine:
 	def GET(self, clusterId, machineId):
 		pass
 
 	def DELETE(self, clusterId, machineId):
-		# TODO get the region from the database
-		region = 'eu-west-1'
-		return Machine.delete_instance(machineId, region)
+		pass
 
 class cluster_collection:
 	def GET(self):
