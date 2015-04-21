@@ -61,11 +61,11 @@ def transfer_machine_from_nursery_to_cluster(cluster_id, new_name="clustered_mac
 	connection = boto.ec2.connect_to_region(region)
 
 	# TODO: RACE CONDITIONS COULD OCCUR HERE! Need a DLM?
-	instances = connection.get_only_instances(filters={ 'instance-state-name':
+	instance = connection.get_only_instances(filters={ 'instance-state-name':
 		'running', 'tag-key': 'cluster', 'tag-value':
-		'__nursery__'})
+		'__nursery__'})[0]
 
-	connection.create_tags(map(lambda instance: instance.id, instances),
+	connection.create_tags([instance.id],
 			tags={ 'cluster': str(cluster_id), 'Name': new_name })
 	# END OF RACE CONDITION TERRITORY
 	return instances
