@@ -12,7 +12,7 @@ def generate_userdata():
 	instance as a userdata script
 	'''
 	ssh_key					= os.environ["DEPLOY_SSH_KEY"]
-	deploy_script_location	= os.environ["DEPLOY_SCRIPT_LOCATION"] 
+	deploy_script_location	= os.environ["DEPLOY_SCRIPT_LOCATION"]
 	with open(deploy_script_location, 'r') as deploy_handle:
 		deploy_script = deploy_handle.readlines()
 	deploy_handle.close()
@@ -26,7 +26,7 @@ def generate_userdata():
 	'''.format(ssh_key, deploy_script)
 	print user_data
 
-	return base64.b64encode(user_data) 
+	return base64.b64encode(user_data)
 
 def create_many(definitions, cluster_id):
 	return map(format_instance, map(lambda data: create_new(data, cluster_id),
@@ -45,7 +45,7 @@ def create_new(data, cluster_id):
 	raise Exception("No available instances")
 
 def create_new_in_nursery(data):
-	security_groups = [ 'sg-fb4c1a9e' ]
+	security_groups = [ 'sg-8a2574ef' ]
 	connection = boto.ec2.connect_to_region(region)
 	instance = connection.run_instances(AMI_ID, instance_type='m3.medium', user_data=generate_userdata()).instances[0]
 	connection.create_tags([instance.id], { 'cluster': '__nursery__' })
