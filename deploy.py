@@ -5,7 +5,7 @@
 import urllib, json, urllib2, sys
 if len(sys.argv) < 2:
 	sys.exit("Specify cluster id")
-	
+
 id = sys.argv[1]
 url = "http://paasport-provisioner.herokuapp.com/clusters/"+id
 response = urllib.urlopen(url);
