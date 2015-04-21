@@ -7,3 +7,6 @@
 # Java stuff to ignore
 .class
 .jar
+
+# Router data files
+router/data/*/*.json
