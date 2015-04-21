@@ -20,18 +20,58 @@ The machine(s) onto which the app is deployed should have the [deploy.sh](code-d
 ### API Spec
 Production Hostname: `http://ec2-52-17-74-125.eu-west-1.compute.amazonaws.com:8080/`
 
-`HTTP POST /paasport/code-deploy/{clusterId}/deployments`
-
+#### Create deployment
+>`HTTP POST /paasport/code-deploy/{clusterId}/deployments`    
 `Accept: application/json`     
 `Content-Type: application/json`
 
-`Payload`
+> `Payload`
 
-    {  
-       "sourceTar":{  
-          "url":"https://s3-eu-west-1.amazonaws.com/paasport-code-deploy/demo-app-java.tar",
-          "version":"not-used-just-yet"
-       }
-    }
+        {  
+    	    "sourceTar":{  
+              "url":"https://s3-eu-west-1.amazonaws.com/paasport-code-deploy/demo-app-java.tar",
+              "version":"not-used-just-yet"
+            }
+        }
 
-    
+#### Get deployment by id
+> `HTTP GET paasport/code-deploy/{deploymentId}`     
+`Content-Type: application/json`
+
+> `Resopnse`
+
+        {
+            "uuid": "db0b5c45-07af-453c-b894-e9b90bea9b01",
+            "sourceTar": {
+                "url": "https://s3-eu-west-1.amazonaws.com/paasport-code-deploy/demo-app-java.tar",
+                "version": null
+            },
+            "status": "completed",
+            "message": null,
+            "timestamp": 1429605787918,
+            "hostCount": 1,
+            "completedCount": 1
+        }
+
+          
+#### Get deployment history for a cluster
+> `HTTP GET paasport/code-deploy/{clusterId}/deployments`     
+`Content-Type: application/json`
+
+> `Resopnse`
+
+          [
+              {
+                  "uuid": "387d766b-fdf8-487b-8ad8-3f68ecaa9770",
+                  "sourceTar": {
+                      "url": "https://s3-eu-west-1.amazonaws.com/paasport-code-deploy/demo-app-java.tar",
+                      "version": null
+                  },
+                  "status": "completed",
+                  "message": null,
+                  "timestamp": 1429609049597,
+                  "hostCount": 1,
+                  "completedCount": 1
+              }
+          ]
+
