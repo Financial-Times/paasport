@@ -19,7 +19,7 @@ logging:
   loggers:
       "org.eclipse.jetty": INFO
       "io.dropwizard": INFO
-      "com.ft": INFO
+      "com.ft": DEBUG
 
 secureConfigLocation: com/ft/membership/appName/secureconfig-dev.yaml
 #provisionerClusterDefEndpoint: https://paasport-provisioner.herokuapp.com/clusters/%s/machines

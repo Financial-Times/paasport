@@ -1,5 +1,7 @@
 package com.ft.paasport.codedeploy;
 
+import com.ft.paasport.codedeploy.dao.DeploymentsDao;
+import com.ft.paasport.codedeploy.db.MongoDbConnection;
 import com.ft.paasport.codedeploy.health.HelloWorldHealthCheck;
 import com.ft.paasport.codedeploy.resources.DeploymentsResource;
 import com.ft.paasport.codedeploy.resources.HelloWorldResource;
@@ -37,8 +39,9 @@ public class App extends Application<AppConfig> {
         // Core resources
         final ProvisionerClient provisioner =
                 new ProvisionerClient(ClientBuilder.newClient(), appConfig.getProvisionerClusterDefEndpoint());
-        final DeploymentsResource deploymentsResource =
-                new DeploymentsResource(new Deployer(appConfig.getRemoteDeployScriptPath()), provisioner);
+        final Deployer deployer = new Deployer(appConfig.getRemoteDeployScriptPath());
+        final DeploymentsDao deploymentsDao = new DeploymentsDao(new MongoDbConnection());
+        final DeploymentsResource deploymentsResource = new DeploymentsResource(deployer, provisioner, deploymentsDao);
         environment.jersey().register(deploymentsResource);
 
         final HelloWorldHealthCheck helloWorldHealthCheck = new HelloWorldHealthCheck();
