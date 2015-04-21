@@ -3,11 +3,16 @@ package com.ft.paasport.codedeploy.dao;
 import com.ft.paasport.codedeploy.db.MongoDbConnection;
 import com.ft.paasport.codedeploy.domain.Deployment;
 import com.ft.paasport.codedeploy.domain.TarFile;
+import com.mongodb.Block;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.print.Doc;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -66,5 +71,27 @@ public class DeploymentsDao {
         UpdateResult result = connection.getCollection(DEPLOYMENTS_COLLECTION_NAME).updateOne(eq("uuid", deployment.getUuid()), new Document("$set", document));
         LOGGER.debug("Matched :: {}, Updated :: {}", result.getMatchedCount(), result.getModifiedCount());
 
+    }
+
+    public List<Deployment> getDeployments(String clusterId) {
+        List<Deployment> deployments = new ArrayList<>();
+        Block<Document> printBlock = new Block<Document>() {
+            @Override
+            public void apply(final Document document) {
+                Deployment deployment = new Deployment();
+                deployment.setUuid(document.getString("uuid"));
+                deployment.setStatus(document.getString("status"));
+                deployment.setHostCount(document.getInteger("hostCount"));
+                deployment.setCompletedCount(document.getInteger("completedCount"));
+                TarFile tarFile = new TarFile();
+                tarFile.setUrl(document.getString("sourceTar"));
+                deployment.setSourceTar(tarFile);
+                deployment.setTimestamp(document.getDate("timestamp"));
+                deployments.add(deployment);
+            }
+        };
+
+        connection.getCollection(DEPLOYMENTS_COLLECTION_NAME).find(eq("clusterId", clusterId)).forEach(printBlock);
+        return deployments;
     }
 }
