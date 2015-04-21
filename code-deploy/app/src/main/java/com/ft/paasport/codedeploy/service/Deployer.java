@@ -21,16 +21,12 @@ public class Deployer {
         Deployer.filePath = filePath;
     }
 
-    public void deploy(String hostname, String sourceTarUrl) {
+    public void deploy(String hostname, String sourceTarUrl) throws IOException {
         LOGGER.info("hostname :: {}, sourceTarUrl :: {}", hostname, sourceTarUrl);
         CommandLine cmdLine = CommandLine.parse(filePath);
         cmdLine.addArgument(hostname);
         cmdLine.addArgument(sourceTarUrl);
         DefaultExecutor executor = new DefaultExecutor();
-        try {
-            executor.execute(cmdLine);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        executor.execute(cmdLine);
     }
 }
