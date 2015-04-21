@@ -49,7 +49,7 @@ def create_new_in_nursery(data):
 	connection = boto.ec2.connect_to_region(region)
 	instance = connection.run_instances(AMI_ID, instance_type='m3.medium',
 			user_data=generate_userdata(), key_name="LukeBlaney",
-			security_groups=security_groups).instances[0]
+			security_group_ids=security_groups).instances[0]
 	connection.create_tags([instance.id], { 'cluster': '__nursery__' })
 
 	return instance
