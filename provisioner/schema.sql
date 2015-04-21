@@ -5,25 +5,6 @@ CREATE TABLE cluster (
 	metadata TEXT
 );
 
-CREATE TABLE machines (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	name TEXT,
-	hostname TEXT,
-	instance_id TEXT,
-	state TEXT,		--should be an int really, but thats for later
-	metadata TEXT,
-	cluster_id INTEGER,
-	-- Enforce people assigning machines to a cluster
-	FOREIGN KEY (cluster_id) REFERENCES cluster(id)
-);
-
-CREATE TABLE manage (
-	spare_machines INTEGER
-);
-
-
 --now let us create a holding place for spare machines or "provision ready" machines
 INSERT INTO cluster VALUES (NULL, 'spare', 'The Man.', 'THis is the spare machine nursery');
 INSERT INTO cluster VALUES (NULL, 'testing', 'The Tester.', 'A test cluster');
-INSERT INTO machines VALUES (NULL, 'Daves testing VM', '127.0.0.1', 'sdgsdfgsdgf','offline', 'Hmmmm metadata', 2);
-INSERT INTO machines VALUES (NULL, 'VM2', '127.0.0.1', 'Mkwooo','offline', 'Hmmmm metadata', 2);
