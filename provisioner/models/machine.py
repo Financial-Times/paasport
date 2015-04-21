@@ -23,7 +23,7 @@ def generate_userdata():
 	curl https://raw.githubusercontent.com/Financial-Times/paasport/master/code-deploy/app/src/main/resources/deploy.sh > /opt/code-deploy/deploy.sh
 	chmod a+x /opt/code-deploy/deploy.sh
 	chown -R ec2-user:ec2-user /opt/code-deploy
-	yum install java
+	yum install -y java
 	echo "all done"
 
 	'''.format(ssh_key, deploy_script)
