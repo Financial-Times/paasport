@@ -21,6 +21,7 @@ mappings = (
 		'/clusters/?', 'cluster_collection',
 		'/clusters/([0-9a-zA-Z\-]+)/machines/?', 'machine_collection',
 		'/clusters/([0-9a-zA-Z\-]+)/machines/([0-9a-zA-Z\-]+)/?', 'machine',
+		'/nursery/?', 'nursery_manager'
 )
 
 
@@ -41,6 +42,7 @@ class cluster:
 
 class machine_collection:
 	def GET(self, cluster_id):
+		web.header('Content-Type', 'application/json')
 		return json.dumps(models.machine.get_instances_in_cluster(cluster_id))
 
 	def POST(self, cluster_id):
@@ -75,6 +77,11 @@ class cluster_collection:
 			'metadata': data['metadata'],
 			'id': clusterId
 		})
+
+class nursery_manager:
+	def POST(self):
+		models.machine.create_new_in_nursery({})
+		return "creating"
 
 if __name__ == '__main__':
 	app.run(port=port)

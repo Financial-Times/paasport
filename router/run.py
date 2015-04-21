@@ -27,7 +27,7 @@ def writedefaultvcl():
 		services.append(filename.split('.',1)[0])
 
 
-	vcl += "\n\nbackend default {\n\t.host = \"127.0.0.1\";\n\t.port = \""+PORT_NUMBER+"\";\n}\n\nsub vcl_recv {\n"
+	vcl += "\n\nbackend default {\n\t.host = \"127.0.0.1\";\n\t.port = \""+str(PORT_NUMBER)+"\";\n}\n\nsub vcl_recv {\n"
 
 	for service in services:
 		vcl += "\tcall service_"+service+";\n"
