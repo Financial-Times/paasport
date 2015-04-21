@@ -1,2 +1,3 @@
 web.py
 boto
+psycopg2
