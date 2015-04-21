@@ -42,6 +42,7 @@ class cluster:
 
 class machine_collection:
 	def GET(self, cluster_id):
+		web.header('Content-Type', 'application/json')
 		return json.dumps(models.machine.get_instances_in_cluster(cluster_id))
 
 	def POST(self, cluster_id):
