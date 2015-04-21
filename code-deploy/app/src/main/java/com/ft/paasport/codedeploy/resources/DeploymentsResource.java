@@ -6,7 +6,6 @@ import com.ft.paasport.codedeploy.domain.DeploymentAcceptMetadata;
 import com.ft.paasport.codedeploy.service.Deployer;
 import com.ft.paasport.codedeploy.service.DeploymentJob;
 import com.ft.paasport.codedeploy.service.ProvisionerClient;
-import org.bson.Document;
 
 import javax.validation.Valid;
 import javax.ws.rs.*;
@@ -16,7 +15,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 @Path("/")
 public class DeploymentsResource {
