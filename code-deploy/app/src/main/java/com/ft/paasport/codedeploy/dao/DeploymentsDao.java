@@ -63,8 +63,6 @@ public class DeploymentsDao {
         document.append("sourceTar", deployment.getSourceTar().getUrl());
         document.append("status", deployment.getStatus());
         document.append("timestamp", deployment.getTimestamp());
-        //DeleteResult deleteResult = connection.getCollection(DEPLOYMENTS_COLLECTION_NAME).deleteOne(eq("uuid", deployment.getUuid()));
-        //LOGGER.debug("deletedCount :: {}, uuid :: {}", deleteResult.getDeletedCount(), deployment.getUuid());
         UpdateResult result = connection.getCollection(DEPLOYMENTS_COLLECTION_NAME).updateOne(eq("uuid", deployment.getUuid()), new Document("$set", document));
         LOGGER.debug("Matched :: {}, Updated :: {}", result.getMatchedCount(), result.getModifiedCount());
 

@@ -52,9 +52,17 @@ public class DeploymentsResource {
             executorService.execute(deploymentJob);
         }
 
-        final DeploymentAcceptMetadata acceptMetadata = new DeploymentAcceptMetadata();
+        final DeploymentAcceptMetadata acceptMetadata = new DeploymentAcceptMetadata(uuid.toString());
         acceptMetadata.setUuid(uuid.toString());
 
         return Response.accepted(acceptMetadata).build();
+    }
+
+    @GET
+    @Path("{deploymentId}")
+    @Produces("application/json")
+    public Response getDeployment(@PathParam("deploymentId") final String deploymentId) {
+        Deployment deployment = deploymentsDao.getDeployment(deploymentId);
+        return Response.ok(deployment).build();
     }
 }
