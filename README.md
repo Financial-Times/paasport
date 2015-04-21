@@ -75,3 +75,34 @@ Production Hostname: `http://ec2-52-17-74-125.eu-west-1.compute.amazonaws.com:80
               }
           ]
 
+
+    
+## Router
+Uses varnish for handling the requests and a python API for configuring varnish
+### Pre-requesites
+* Python 2.x
+* Varnish 4.x
+
+The router API is started by running `./run.py` in the `router` directory.  The user running the script should have the following permissions:
+* Read/write access to `router/data/**`
+* Write/directory listing access to `/etc/varnish/service/*.vcl` and `/etc/varnish/addon/*.vcl`
+* Write access to `/etc/varnish/default.vcl`
+* Exec permissions for `sudo service varnish reload`
+
+### API
+#### `/service/$hostname`
+`$hostname` indicates which host header to match for routing traffic to the service.
+##### GET Request
+If the service is already set up, returns the definition of the service as JSON.
+Otherwise, returns a 404.
+
+##### PUT Request
+Adds a new service or updates an existing service.  Input should be a JSON object, which can contain the following keys:
+* `machines` *required* An array of one or more machines where the service is running.  Each machine should be specified as `hostname[:port]`
+* `addons` *optional* An array of layer 7 addons in the order that traffic should be routed there before hitting the service.
+* `directorname` This is set based on the `$hostname` and santised for use in varnish config.  If this appears in the PUT Request, it **will** be overwritten.
+* Other keys are not used, but will be saved in the config, and returned by any GET request.
+
+##### DELETE Request
+Not yet implemented.
+
