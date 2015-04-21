@@ -28,7 +28,7 @@ processProcFile ()
     then
         echo "java..."
         # TODO: This doesn't work. sudo needs tty
-        sudo yum -y install java
+        # sudo yum -y install java
     elif [ "$applicationType" = "node" ]
     then
         echo "node..."
