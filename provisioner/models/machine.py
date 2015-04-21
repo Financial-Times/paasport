@@ -1,4 +1,5 @@
 import os
+import base64
 import boto.ec2
 
 # EU-WEST-1: RHEL7 HVM
