@@ -19,6 +19,7 @@ def generate_userdata():
 	user_data = '''#!/bin/bash
 
 	printf '{0}' >> /home/ec2-user/.ssh/authorized_keys;
+	mkdir -p /opt/code-deploy
 	curl https://raw.githubusercontent.com/Financial-Times/paasport/master/code-deploy/app/src/main/resources/deploy.sh > /opt/code-deploy/deploy.sh
 	chmod a+x /opt/code-deploy/deploy.sh
 	echo "all done"
