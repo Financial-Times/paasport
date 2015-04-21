@@ -1,0 +1,29 @@
+server:
+  type: simple
+  applicationContextPath: /paasport/code-deploy
+  adminContextPath: /admin
+  connector:
+    type: http
+    port: 8080
+
+  requestLog:
+    timeZone: UTC
+    appenders:
+      - type: console
+
+logging:
+  level: INFO
+  appenders:
+    - type: console
+
+  loggers:
+      "org.eclipse.jetty": INFO
+      "io.dropwizard": INFO
+      "com.ft": INFO
+
+secureConfigLocation: com/ft/membership/appName/secureconfig-dev.yaml
+#provisionerClusterDefEndpoint: https://paasport-provisioner.herokuapp.com/clusters/%s/machines
+provisionerClusterDefEndpoint: http://localhost:8080/paasport/code-deploy/mock/clusters/%s/machines
+remoteDeployScriptPath: app/src/main/resources/remoteDeploy.sh
+
+greeting: "Hello World!"
