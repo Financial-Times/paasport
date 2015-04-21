@@ -3,10 +3,10 @@ package com.ft.paasport.codedeploy.resources;
 import com.ft.paasport.codedeploy.dao.DeploymentsDao;
 import com.ft.paasport.codedeploy.domain.Deployment;
 import com.ft.paasport.codedeploy.domain.DeploymentAcceptMetadata;
-import com.ft.paasport.codedeploy.domain.Machine;
 import com.ft.paasport.codedeploy.service.Deployer;
 import com.ft.paasport.codedeploy.service.DeploymentJob;
 import com.ft.paasport.codedeploy.service.ProvisionerClient;
+import org.bson.Document;
 
 import javax.validation.Valid;
 import javax.ws.rs.*;
@@ -64,5 +64,13 @@ public class DeploymentsResource {
     public Response getDeployment(@PathParam("deploymentId") final String deploymentId) {
         Deployment deployment = deploymentsDao.getDeployment(deploymentId);
         return Response.ok(deployment).build();
+    }
+
+    @GET
+    @Path("/{clusterId}/deployments")
+    @Produces("application/json")
+    public Response getDeploymentsHistory(@PathParam("clusterId") final String clusterId) {
+        List<Deployment> deployments = deploymentsDao.getDeployments(clusterId);
+        return Response.ok(deployments).build();
     }
 }
