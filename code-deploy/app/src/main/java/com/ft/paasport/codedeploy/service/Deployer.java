@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -14,17 +15,15 @@ import java.net.URL;
 public class Deployer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Deployer.class);
-    private static final String DEPLOY_SCRIPT_NAME = "remoteDeploy.sh";
-    private static URL fileUrl;
+    private static String filePath;
 
-    public Deployer() {
-        ClassLoader classLoader = this.getClass().getClassLoader();
-        fileUrl = classLoader.getResource(DEPLOY_SCRIPT_NAME);
+    public Deployer(String filePath) throws MalformedURLException {
+        Deployer.filePath = filePath;
     }
 
     public void deploy(String hostname, String sourceTarUrl) {
         LOGGER.info("hostname :: {}, sourceTarUrl :: {}", hostname, sourceTarUrl);
-        CommandLine cmdLine = CommandLine.parse(fileUrl.getPath());
+        CommandLine cmdLine = CommandLine.parse(filePath);
         cmdLine.addArgument(hostname);
         cmdLine.addArgument(sourceTarUrl);
         DefaultExecutor executor = new DefaultExecutor();

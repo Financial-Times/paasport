@@ -4,17 +4,27 @@ server:
   adminContextPath: /admin
   connector:
     type: http
-    port: 8080
+    port: 80
 
   requestLog:
     timeZone: UTC
     appenders:
-      - type: console
+      - type: file
+        currentLogFilename: /var/log/paasport/code-deploy-access.log
+        archive: true
+        archivedLogFilenamePattern: /var/log/paasport/code-deploy-access-%d.log.gz
+        archivedFileCount: 5
 
 logging:
   level: INFO
   appenders:
-    - type: console
+    - type: file
+      currentLogFilename: /var/log/paasport/code-deploy.log
+      threshold: ALL
+      archive: true
+      archivedLogFilenamePattern: /var/log/paasport/code-deploy-%d.log
+      archivedFileCount: 5
+      timeZone: UTC
 
   loggers:
       "org.eclipse.jetty": INFO
@@ -23,6 +33,7 @@ logging:
 
 secureConfigLocation: com/ft/membership/appName/secureconfig-dev.yaml
 #provisionerClusterDefEndpoint: https://paasport-provisioner.herokuapp.com/clusters/%s/machines
-provisionerClusterDefEndpoint: http://localhost:8080/paasport/code-deploy/mock/clusters/%s/machines
+provisionerClusterDefEndpoint: http://localhost/paasport/code-deploy/mock/clusters/%s/machines
+remoteDeployScriptPath: /opt/code-deploy/scripts/remoteDeploy.sh
 
 greeting: "Hello World!"

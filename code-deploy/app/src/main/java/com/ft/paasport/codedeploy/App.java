@@ -37,7 +37,8 @@ public class App extends Application<AppConfig> {
         // Core resources
         final ProvisionerClient provisioner =
                 new ProvisionerClient(ClientBuilder.newClient(), appConfig.getProvisionerClusterDefEndpoint());
-        final DeploymentsResource deploymentsResource = new DeploymentsResource(new Deployer(), provisioner);
+        final DeploymentsResource deploymentsResource =
+                new DeploymentsResource(new Deployer(appConfig.getRemoteDeployScriptPath()), provisioner);
         environment.jersey().register(deploymentsResource);
 
         final HelloWorldHealthCheck helloWorldHealthCheck = new HelloWorldHealthCheck();

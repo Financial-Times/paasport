@@ -22,6 +22,10 @@ public class AppConfig extends Configuration {
     @JsonProperty
     private String provisionerClusterDefEndpoint;
 
+    @Valid
+    @JsonProperty
+    private String remoteDeployScriptPath;
+
     public String getSecureConfigLocation() {
         return secureConfigLocation;
     }
@@ -44,5 +48,13 @@ public class AppConfig extends Configuration {
 
     public void setProvisionerClusterDefEndpoint(String provisionerClusterDefEndpoint) {
         this.provisionerClusterDefEndpoint = provisionerClusterDefEndpoint;
+    }
+
+    public String getRemoteDeployScriptPath() {
+        return remoteDeployScriptPath;
+    }
+
+    public void setRemoteDeployScriptPath(String remoteDeployScriptPath) {
+        this.remoteDeployScriptPath = remoteDeployScriptPath;
     }
 }
