@@ -68,12 +68,12 @@ def transfer_machine_from_nursery_to_cluster(cluster_id, new_name="clustered_mac
 	connection.create_tags([instance.id],
 			tags={ 'cluster': str(cluster_id), 'Name': new_name })
 	# END OF RACE CONDITION TERRITORY
-	return instances
+	return [instance]
 
 def get_instances_in_cluster(cluster_id):
 	connection = boto.ec2.connect_to_region(region)
 	return 	map(format_instance, connection.get_only_instances(filters={ 'tag-key': 'cluster',
-				'tag-value': cluster_id }))
+		'tag-value': cluster_id, 'instance-state-name': 'running' }))
 
 def format_instance(instance):
 	return {
