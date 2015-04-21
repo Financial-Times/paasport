@@ -16,7 +16,7 @@ def generate_userdata():
 	with open(deploy_script_location, 'r') as deploy_handle:
 		deploy_script = deploy_handle.readlines()
 	deploy_handle.close()
-	user_data = '''#!/usr/bin/bash
+	user_data = '''#!/bin/bash
 
 	printf '{0}' >> /home/ec2-user/.ssh/authorized_keys;
 	echo {1} > /opt/code-deploy/deploy.sh
